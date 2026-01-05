@@ -11,7 +11,7 @@ const MainLayout = () => {
   } = theme.useToken();
 
   return (
-    <Layout className="bg-[]">
+    <Layout>
       <AppSidebar />
       <Layout>
         <AppHeader />

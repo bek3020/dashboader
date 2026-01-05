@@ -1,8 +1,7 @@
 import React from "react";
 import { TrendingUp } from "lucide-react";
-// 1. BU YERDA 'Cell' QO'SHILDI
 import { Pie, PieChart, Cell, Tooltip, ResponsiveContainer } from "recharts";
-
+import { Table } from "antd";
 const chartData = [
   { name: "Chrome", value: 275, color: "#3b82f6" },
   { name: "Safari", value: 200, color: "#22c55e" },
@@ -11,9 +10,26 @@ const chartData = [
   { name: "Other", value: 90, color: "#64748b" },
 ];
 
+const columns = [
+  { title: "Name", dataIndex: "name", key: "name", width: 150 },
+  { title: "Age", dataIndex: "age", key: "age", width: 100 },
+  { title: "Address", dataIndex: "address", key: "address", width: 200 },
+];
+const data = Array.from({ length: 1000 }, (_, i) => ({
+  key: i,
+  name: `John Doe ${i + 1}`,
+  age: 30 + (i % 10),
+  address: `1234 Elm St, City ${i + 1}`,
+}));
+
+const otherProps = {
+  dataSource: data,
+  columns,
+  pagination: false,
+  scroll: { x: 2000, y: 500 },
+};
 const ChartPieDonutActive = () => {
   return (
-    // 2. width: 350 O'RNIGA w-full YOKI KATTAROQ QIYMAT BERING
     <div className="w-full bg-[#020817] p-6 rounded-xl border border-slate-800 text-white">
       <div className="flex items-center justify-between mb-6">
         <h1 className="text-xl font-semibold">Order Status</h1>
@@ -26,9 +42,7 @@ const ChartPieDonutActive = () => {
           </button>
         </div>
       </div>
-
       <div className="flex flex-col lg:flex-row items-center justify-between gap-8">
-        {/* 1. STATS GRID */}
         <div className="grid grid-cols-2 w-full lg:w-1/2 border border-slate-800 rounded-lg overflow-hidden shrink-0">
           <div className="p-6 border-b border-r border-slate-800 flex flex-col gap-1">
             <span className="text-slate-400 text-xs font-medium uppercase tracking-wider">
@@ -68,7 +82,6 @@ const ChartPieDonutActive = () => {
           </div>
         </div>
 
-        {/* 2. CHART */}
         <div className="w-full lg:w-1/2 h-[300px] flex items-center justify-center">
           <ResponsiveContainer width="100%" height="100%">
             <PieChart>
@@ -82,7 +95,6 @@ const ChartPieDonutActive = () => {
                 stroke="none"
               >
                 {chartData.map((entry, index) => (
-                  // fill={entry.color} ekanligiga e'tibor bering
                   <Cell key={`cell-${index}`} fill={entry.color} />
                 ))}
               </Pie>
@@ -98,9 +110,22 @@ const ChartPieDonutActive = () => {
           </ResponsiveContainer>
         </div>
       </div>
-
       <div className="mt-6 flex items-center gap-2 text-slate-400 text-sm">
         Trending up by 5.2% <TrendingUp size={16} className="text-green-500" />
+      </div>
+      <div className="mt-8 bg-[#020817] p-6 rounded-xl border border-slate-800 flex items-center gap-3 text-white">
+        <Table
+          style={{ minWidth: 500, borderRadius: "8px" }}
+          virtual
+          scroll={{ x: 2000, y: 500 }}
+          {...otherProps}
+        />
+        <Table
+          style={{ minWidth: 500, borderRadius: "8px" }}
+          virtual
+          scroll={{ x: 2000, y: 500 }}
+          {...otherProps}
+        />
       </div>
     </div>
   );
