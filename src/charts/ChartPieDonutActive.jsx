@@ -1,7 +1,18 @@
 import React from "react";
 import { TrendingUp } from "lucide-react";
-import { Pie, PieChart, Cell, Tooltip, ResponsiveContainer } from "recharts";
+import {
+  Pie,
+  PieChart,
+  Cell,
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  Tooltip,
+  ResponsiveContainer,
+} from "recharts";
 import { Table } from "antd";
+
 const chartData = [
   { name: "Chrome", value: 275, color: "#3b82f6" },
   { name: "Safari", value: 200, color: "#22c55e" },
@@ -15,7 +26,7 @@ const columns = [
   { title: "Age", dataIndex: "age", key: "age", width: 100 },
   { title: "Address", dataIndex: "address", key: "address", width: 200 },
 ];
-const data = Array.from({ length: 1000 }, (_, i) => ({
+const data = Array.from({ length: 50 }, (_, i) => ({
   key: i,
   name: `John Doe ${i + 1}`,
   age: 30 + (i % 10),
@@ -126,6 +137,20 @@ const ChartPieDonutActive = () => {
           scroll={{ x: 2000, y: 500 }}
           {...otherProps}
         />
+      </div>
+      <div className="mt-8 bg-[#020817] p-6 rounded-xl border border-slate-800 flex items-center gap-3 text-white">
+        <Table virtual scroll={{ x: 2000, y: 500 }} {...otherProps} />
+      </div>
+
+      <div className="mt-8 bg-[#020817] p-6 rounded-xl border border-slate-800 text-white h-[300px]">
+        <ResponsiveContainer width="100%" height="100%">
+          <BarChart data={data}>
+            <XAxis dataKey="name" hide />
+            <YAxis />
+            <Tooltip />
+            <Bar dataKey="age" fill="#7c6cff" radius={[6, 6, 0, 0]} />
+          </BarChart>
+        </ResponsiveContainer>
       </div>
     </div>
   );
